@@ -48,10 +48,12 @@ jobs:
         docker-compose run --rm robot
 
     - name: Copy results
+      if: always()
       run: |
         docker cp $(docker ps -aqf "ancestor=robot_framework"):/results ./results
 
     - name: Remove container
+      if: always()
       run: |
         docker-compose down
 
