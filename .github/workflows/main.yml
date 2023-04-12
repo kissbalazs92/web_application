@@ -43,14 +43,6 @@ jobs:
         sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
         docker-compose up -d web db robot
 
-    - name: Debug container and results directory
-      if: always()
-      run: |
-        docker ps
-        container_id=$(docker ps -aqf "name=database_container")
-        echo "Container ID: $container_id"
-        docker exec $container_id bash -c "ls /results"
-
     - name: Copy results
       if: always()
       run: |
