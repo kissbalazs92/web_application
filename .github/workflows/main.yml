@@ -45,7 +45,7 @@ jobs:
 
     - name: Run tests in Docker container
       run: |
-        docker-compose run --rm robot
+        docker-compose run
 
     - name: Debug container and results directory
       if: always()
