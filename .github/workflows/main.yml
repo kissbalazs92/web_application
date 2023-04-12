@@ -42,7 +42,7 @@ jobs:
       run: |
         sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
         docker-compose up -d web db
-        docker-compose robot
+        docker-compose up robot
 
     - name: Copy results
       if: always()
