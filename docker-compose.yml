@@ -33,6 +33,7 @@ services:
       - ./webshop/my.cnf:/etc/mysql/my.cnf
 
   robot:
+    container_name: robot_framework_container
     build: ./robot_framework
     depends_on:
       - web
