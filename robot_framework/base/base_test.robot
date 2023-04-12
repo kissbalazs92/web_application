@@ -41,6 +41,7 @@ Common Test Setup
     END
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
+    Wait For Condition	return document.readyState == "complete"
 
 Setup Chrome
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
