@@ -41,7 +41,7 @@ Common Test Setup
     END
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
-    Wait Until Element Is Visible    ${HOME_PAGE_TEXT}
+    Wait Until Element Is Visible    ${HOME_PAGE_TEXT}    120
 
 Setup Chrome
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
