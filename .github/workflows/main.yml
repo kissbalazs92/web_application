@@ -41,11 +41,7 @@ jobs:
     - name: Run Docker Compose
       run: |
         sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
-        docker-compose up -d web db
-
-    - name: Run tests in Docker container
-      run: |
-        docker-compose run robot
+        docker-compose up -d web db robot
 
     - name: Debug container and results directory
       if: always()
