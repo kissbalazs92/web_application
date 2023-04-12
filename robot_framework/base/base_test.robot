@@ -41,7 +41,7 @@ Common Test Setup
     END
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
-    Wait For Condition	return document.readyState == "complete"
+    Wait Until Element Is Visible    ${HOME_PAGE_TEXT}
 
 Setup Chrome
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
