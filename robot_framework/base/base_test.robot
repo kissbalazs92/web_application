@@ -41,9 +41,14 @@ Common Test Setup
     END
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
+    FOR    ${i}    IN RANGE    60
+        Reload Page
+        ${contains_element}=    Run Keyword And Return Status    Element Should Be Visible    ${HOME_PAGE_TEXT}
+        Exit For Loop If    '${contains_element}' == 'True'
+        Sleep    1s
+    END
     ${page_source}=     Get Source
     Log  Source:${page_source}    console=${True}
-    Wait Until Element Is Visible    ${HOME_PAGE_TEXT}    10
 
 Setup Chrome
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
