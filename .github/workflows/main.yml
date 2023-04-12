@@ -47,6 +47,13 @@ jobs:
       run: |
         docker-compose run --rm robot
 
+    - name: Debug container and results directory
+      run: |
+        docker ps
+        container_id=$(docker ps -aqf "ancestor=robot_framework")
+        echo "Container ID: $container_id"
+        docker exec -it $container_id bash -c "ls /results"
+
     - name: Copy results
       if: always()
       run: |
