@@ -13,7 +13,8 @@ Test Teardown    Common Test Teardown
 Login to webshop as simple user
     [Documentation]    Tests the login functionality as simple user.
     [Tags]    high_priority    functional_test
-    Log Source    console=${True}
+    ${page_source}=     Get Source
+    Log  ${page_source}
     Go To    ${BASE_URL}${LOGIN_URL}
     Login With Credentials    ${USERNAME}    ${PASSWORD}
     Verify Successful Login

@@ -8,7 +8,8 @@ Test Teardown    Common Test Teardown
 
 *** Test Cases ***
 Register new user
-    Log Source    console=${True}
+    ${page_source}=     Get Source
+    Log  ${page_source}
     Go To    ${BASE_URL}${REGISTRATION_URL}
     Fill Registration Form With Random Test Data
     Click Button    ${SUBMIT_BUTTON}
