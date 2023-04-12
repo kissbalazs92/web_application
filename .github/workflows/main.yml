@@ -51,9 +51,9 @@ jobs:
       if: always()
       run: |
         docker ps
-        container_id=$(docker ps -aqf "ancestor=robot_framework")
+        container_id=$(docker ps -aqf "name=web_application_robot")
         echo "Container ID: $container_id"
-        docker exec -it $container_id bash -c "ls /results"
+        docker exec $container_id bash -c "ls /results"
 
     - name: Copy results
       if: always()
