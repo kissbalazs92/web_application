@@ -56,7 +56,9 @@ jobs:
         docker-compose down
 
     - name: Upload test results
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: test-results-${{ matrix.browsers }}
         path: ./results
+
