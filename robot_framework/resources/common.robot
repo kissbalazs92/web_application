@@ -46,7 +46,7 @@ Connect To MySQL Database
     ${DB_NAME}    Set Variable    webshop
     ${DB_USER}    Set Variable    webshop_user
     ${DB_PASSWORD}    Set Variable    webshop_password
-    ${DB_HOST}    Set Variable    web_application-db-1    
+    ${DB_HOST}    Set Variable    database_container    
     ${DB_PORT}    Set Variable    3308
     Connect To Database    pymysql    ${DB_NAME}    ${DB_USER}    ${DB_PASSWORD}    ${DB_HOST}    ${DB_PORT}
 

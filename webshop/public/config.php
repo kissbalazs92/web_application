@@ -1,6 +1,6 @@
 <?php
 
-$host = "web_application-db-1";
+$host = "database_container";
 $db = "webshop";
 $user = "webshop_user";
 $pass = "webshop_password";

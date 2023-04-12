@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   web:
+    container_name: webshop_container
     build: ./webshop
     ports:
       - "8080:80"
@@ -13,6 +14,7 @@ services:
       - ./webshop:/var/www/html
 
   db:
+    container_name: database_container
     image: mysql:8.0
     command:
       - --default-authentication-plugin=mysql_native_password
