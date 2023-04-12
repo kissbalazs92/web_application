@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mysql:8.0
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --port=3307
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: some_root_password
+      MYSQL_DATABASE: webshop
+      MYSQL_USER: webshop_user
+      MYSQL_PASSWORD: webshop_password
+    ports:
+      - "3307:3307"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./my.cnf:/etc/mysql/my.cnf
+
+volumes:
+  db_data:

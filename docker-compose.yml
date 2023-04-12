@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  web:
+    build: ./webshop
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - network_to_connect
+    volumes:
+      - ./webshop:/var/www/html
+
+  db:
+    image: mysql:8.0
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --port=3308
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: some_root_password
+      MYSQL_DATABASE: webshop
+      MYSQL_USER: webshop_user
+      MYSQL_PASSWORD: webshop_password
+    ports:
+      - "3308:3308"
+    networks:
+      - network_to_connect
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./webshop/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./webshop/my.cnf:/etc/mysql/my.cnf
+
+  robot:
+    build: ./robot_framework
+    depends_on:
+      - web
+    networks:
+      - network_to_connect
+    environment:
+      - BROWSER=Chrome
+      - WEB_APP_URL=http://web:80
+    volumes:
+      - ./robot_framework:/app
+      - ./robot_framework/results:/results
+
+networks:
+  network_to_connect:
+
+volumes:
+  db_data:

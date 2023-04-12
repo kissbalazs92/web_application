@@ -1,0 +1,68 @@
+name: Workflow to test the webshop using Docker Compose and matrix
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Read browsers JSON file
+      id: set-matrix
+      run: |
+        content=`cat ./browsers.json`
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/' '}"
+        content="${content//$'\r'/'%0D'}"
+        matrix_content="{\"browsers\": $content}"
+        echo $matrix_content
+        echo "matrix=$matrix_content" | tee $GITHUB_ENV
+        git config --system --list
+
+  run-tests:
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        browsers: [Firefox, Chrome]
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+
+    - name: Set BROWSER_ENV variable
+      run: echo "BROWSER_ENV=${{ matrix.browsers }}" >> $GITHUB_ENV
+
+    - name: Run Docker Compose
+      run: |
+        sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
+        ls -l /home/runner/work/web_application/
+        ls -l /home/runner/work/web_application/web_application/
+        ls -l /home/runner/work/web_application/web_application/webshop/
+        docker-compose up -d web db
+
+    - name: Run tests in Docker container
+      run: |
+        docker-compose run --rm robot
+
+    - name: Copy results
+      run: |
+        docker cp $(docker ps -aqf "ancestor=robot_framework"):/results ./results
+
+    - name: Remove container
+      run: |
+        docker-compose down
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.browsers }}
+        path: ./results
