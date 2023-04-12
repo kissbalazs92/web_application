@@ -21,8 +21,8 @@ jobs:
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/' '}"
         content="${content//$'\r'/'%0D'}"
-        echo "matrix=$content" | tee $GITHUB_ENV
-        echo "matrix=$content" > matrix.json
+        matrix_content="[$content]"
+        echo "matrix=$matrix_content" | tee $GITHUB_ENV
 
   run-tests:
     needs: prepare-matrix
