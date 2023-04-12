@@ -51,7 +51,7 @@ jobs:
       if: always()
       run: |
         docker ps
-        container_id=$(docker ps -aqf "name=web_application_robot")
+        container_id=$(docker ps -aqf "name=database_container")
         echo "Container ID: $container_id"
         docker exec $container_id bash -c "ls /results"
 
