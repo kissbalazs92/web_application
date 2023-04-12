@@ -7,8 +7,6 @@ Test Teardown    Common Test Teardown
 Login to webshop as admin
     [Documentation]    Tests the login functionality as admin.
     [Tags]    high_priority    functional_test
-    ${page_source}=     Get Source
-    Log  Source:${page_source}    console=${True}
     Go To    ${BASE_URL}${ADMIN_URL}
     Login With Credentials    ${ADMIN}    ${ADMIN_PASSWORD}
     Verify Successful Login As Admin

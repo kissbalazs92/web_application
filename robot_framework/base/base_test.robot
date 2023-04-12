@@ -47,8 +47,6 @@ Common Test Setup
         Exit For Loop If    '${contains_element}' == 'True'
         Sleep    1s
     END
-    ${page_source}=     Get Source
-    Log  Source:${page_source}    console=${True}
 
 Setup Chrome
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
