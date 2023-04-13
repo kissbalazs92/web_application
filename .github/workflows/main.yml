@@ -14,25 +14,18 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Read browsers JSON file
+    - name: Read browsers JSON file and set output
       id: set-matrix
       run: |
-        content=`cat ./browsers.json`
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/' '}"
-        content="${content//$'\r'/'%0D'}"
-        content="${content//'"'/''}"
-        matrix_content="{\"browsers\": $content}"
-        echo $matrix_content
-        echo "matrix=$matrix_content" | tee $GITHUB_ENV
+        content=$(cat ./browsers.json)
+        echo "matrix={\"browsers\": $content}" >> $GITHUB_ENV
 
   run-tests:
     needs: prepare-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: 
-        browsers: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
+      matrix: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
