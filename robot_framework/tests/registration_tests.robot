@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../base/base_test.robot
+Resource    ../base/base_test.resources
 Test Setup    Common Test Setup
 Test Teardown    Common Test Teardown
 

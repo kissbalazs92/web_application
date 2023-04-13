@@ -21,7 +21,9 @@ jobs:
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/' '}"
         content="${content//$'\r'/'%0D'}"
-        matrix_content="[$content]"
+        content="${content//'"'/''}"
+        matrix_content="{\"browsers\": $content}"
+        echo $matrix_content
         echo "matrix=$matrix_content" | tee $GITHUB_ENV
 
   run-tests:

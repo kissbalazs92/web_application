@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../base/base_test.robot
+Resource    ../base/base_test.resources
 
 *** Variables ***
 ${ADMIN_DASHBOARD_URL}    /admin_dashboard.php
