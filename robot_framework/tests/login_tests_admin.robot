@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../base/base_test.resources
+Resource    ../base/base_test.resource
 Test Setup    Common Test Setup
 Test Teardown    Common Test Teardown
 

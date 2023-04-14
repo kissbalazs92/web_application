@@ -7,19 +7,19 @@ Library    ../resources/webdriver-helper.py
 Library    ../resources/random_data_generator.py
 Library    ../resources/url_helper.py
 
-Resource    ../pages/home_page.resources
-Resource    ../pages/login_page.resources
-Resource    ../pages/admin_page.resources
-Resource    ../pages/admin_dashboard_page.resources
-Resource    ../pages/registration_page.resources
+Resource    ../pages/home_page.resource
+Resource    ../pages/login_page.resource
+Resource    ../pages/admin_page.resource
+Resource    ../pages/admin_dashboard_page.resource
+Resource    ../pages/registration_page.resource
 
-Resource    ../keywords/login_keywords.resources
-Resource    ../keywords/admin_keywords.resources
-Resource    ../keywords/registration_keyword.resources
+Resource    ../keywords/login_keywords.resource
+Resource    ../keywords/admin_keywords.resource
+Resource    ../keywords/registration_keyword.resource
 
-Resource    ../resources/common.resources
+Resource    ../resources/common.resource
 
-Resource    ../components/menu.resources
+Resource    ../components/menu.resource
 
 Variables    ../resources/common_variables.py
 
