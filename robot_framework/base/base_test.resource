@@ -41,8 +41,6 @@ Common Test Setup
     END
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
-    ${source}=    Get Source
-    Log    ${source}    console=${True}
     FOR    ${i}    IN RANGE    60
         Reload Page
         ${contains_element}=    Run Keyword And Return Status    Element Should Be Visible    ${HOME_PAGE_TEXT}
