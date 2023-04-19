@@ -40,11 +40,11 @@ jobs:
     - name: Print BROWSER_ENV variable
       run: echo "BROWSER_ENV=${{ env.BROWSER_ENV }}"
 
-    - name: Run Docker Compose
+    - name: Run Docker Compose and run tests
       run: |
         sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
         docker-compose up -d web db
-        docker-compose up robot
+        docker-compose run --returnrc /app/robot_framework/tests
 
     - name: Copy results
       if: always()
