@@ -28,7 +28,8 @@ ${BROWSERS}    ${EMPTY}
 
 *** Keywords ***
 Common Test Setup
-    ${BROWSERS}=    Create List    Chrome    Firefox    Edge
+    ${BROWSERS}=    Create List    chrome    firefox    edge
+    ${BROWSER}=    Convert To Lower Case    ${BROWSER}
     IF    $BROWSER == $BROWSERS[0]
         Setup Chrome
     END
