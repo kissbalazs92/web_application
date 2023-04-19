@@ -1,5 +1,3 @@
-name: Workflow to test the webshop using Docker Compose and matrix
-
 on:
   push:
     branches:
@@ -22,6 +20,7 @@ jobs:
       run: |
         content=`cat ./browsers.json | jq -c .`
         echo "matrix=$content" | tee $GITHUB_ENV
+        echo "Set matrix to: $content"
 
   run-tests:
     needs: prepare-matrix
@@ -29,13 +28,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        browsers: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}
+        browsers: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
 
     - name: Set BROWSER_ENV variable
       run: echo "BROWSER_ENV=${{ matrix.browsers }}" >> $GITHUB_ENV
+
+    - name: Print BROWSER_ENV variable
+      run: echo "BROWSER_ENV=${{ env.BROWSER_ENV }}"
 
     - name: Run Docker Compose
       run: |
