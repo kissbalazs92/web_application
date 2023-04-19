@@ -20,7 +20,6 @@ jobs:
       run: |
         content=`cat ./browsers.json | jq -c .`
         echo "matrix=$content" | tee $GITHUB_ENV
-        echo "Set matrix to: $content"
 
   run-tests:
     needs: prepare-matrix
@@ -28,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        browsers: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
+        browsers: ${{ toJSON(needs.prepare-matrix.outputs.matrix) }}
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
