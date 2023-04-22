@@ -11,4 +11,3 @@ Login to webshop as admin
     Login With Credentials    ${ADMIN}    ${ADMIN_PASSWORD}
     Verify Successful Login As Admin
     Save Cookies    ${True}
-    Fail
