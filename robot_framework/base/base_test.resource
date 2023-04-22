@@ -5,6 +5,7 @@ Library    Collections
 Library    String
 Library    json
 Library    OperatingSystem
+
 Library    ../resources/webdriver-helper.py
 Library    ../resources/random_data_generator.py
 Library    ../resources/url_helper.py
@@ -31,19 +32,11 @@ ${BROWSERS}    ${EMPTY}
 *** Keywords ***
 Common Test Setup
     ${BROWSERS}=    Read Browsers From JSON
-    Log    ${BROWSERS}    console=${True}
-    ${asd}=    Evaluate    type(${BROWSERS})
-    Log    típus:${asd}    console=${True}
-    Log    0dik elem:${BROWSERS}[0]    console=${True}
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
-    IF    $BROWSER == $BROWSERS[0]
-        Setup Chrome
-    END
-    IF    $BROWSER == $BROWSERS[1]
-        Setup Firefox
-    END
-    IF    $BROWSER == $BROWSERS[2]
-        Setup Edge
+    ${is_browser_valid}=    Evaluate    ${BROWSER} in ${BROWSERS}
+    Log    ${is_browser_valid}    console=${True}
+    IF    ${is_browser_valid} == $True
+        Setup Browser    ${BROWSER}
     END
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
@@ -52,6 +45,18 @@ Common Test Setup
         ${contains_element}=    Run Keyword And Return Status    Element Should Be Visible    ${HOME_PAGE_TEXT}
         Exit For Loop If    '${contains_element}' == 'True'
         Sleep    1s
+    END
+
+Setup Browser
+    [Arguments]    ${BROWSER}
+    IF    $BROWSER == chrome
+        Setup Chrome
+    END
+    IF    $BROWSER == firefox
+        Setup Firefox
+    END
+    IF    $BROWSER == edge
+        Setup Edge
     END
 
 Setup Chrome
