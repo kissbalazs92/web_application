@@ -31,13 +31,8 @@ ${BROWSERS}    ${EMPTY}
 
 *** Keywords ***
 Common Test Setup
-    ${BROWSERS}=    Read Browsers From JSON
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
-    ${is_browser_valid}=    Evaluate    '${BROWSER}' in ${BROWSERS}
-    Log    ${is_browser_valid}    console=${True}
-    IF    ${is_browser_valid} == $True
-        Setup Browser    ${BROWSER}
-    END
+    Setup Browser    ${BROWSER}
     Log    ${BROWSER}    console=${True}
     Go To    ${BASE_URL}
     FOR    ${i}    IN RANGE    60
@@ -49,13 +44,13 @@ Common Test Setup
 
 Setup Browser
     [Arguments]    ${BROWSER}
-    IF    $BROWSER == chrome
+    IF    $BROWSER == "chrome"
         Setup Chrome
     END
-    IF    $BROWSER == firefox
+    IF    $BROWSER == "firefox"
         Setup Firefox
     END
-    IF    $BROWSER == edge
+    IF    $BROWSER == "edge"
         Setup Edge
     END
 
