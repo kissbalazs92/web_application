@@ -4,10 +4,14 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip3 install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
 RUN apt-get update && \
-    apt-get install -y wget gnupg curl unzip
+    apt-get install -y apt-utils wget gnupg curl unzip
+
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:$PATH"
 
 ARG BROWSER
 
@@ -22,6 +26,20 @@ RUN if [ "$BROWSER" = "Chrome" ]; then \
       echo "deb http://deb.debian.org/debian/ stable main" >> /etc/apt/sources.list.d/debian.list && \
       apt-get update && \
       apt-get install -y firefox-esr; \
+    elif [ "$BROWSER" = "Edge" ]; then \
+      echo "Installing Microsoft Edge..." && \
+      curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
+      install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/ && \
+      echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge/ stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list && \
+      apt-get update && \
+      apt-get install -y microsoft-edge-dev; \
+    elif [ "$BROWSER" = "Opera" ]; then \
+      echo "Installing Opera..." && \
+      wget -qO- https://deb.opera.com/archive.key | gpg --dearmor > opera.gpg && \
+      install -o root -g root -m 644 opera.gpg /etc/apt/trusted.gpg.d/ && \
+      echo "deb [arch=amd64] https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list && \
+      apt-get update && \
+      apt-get install -y opera-stable; \
     fi
 
 COPY . .
