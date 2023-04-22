@@ -47,6 +47,7 @@ services:
     volumes:
       - ./robot_framework:/app
       - ./robot_framework/results:/results
+    tty: true
 
 networks:
   network_to_connect:
