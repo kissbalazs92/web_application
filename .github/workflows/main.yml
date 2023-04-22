@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - master
-
+      
 jobs:
   prepare-matrix:
     runs-on: ubuntu-latest
@@ -18,9 +18,10 @@ jobs:
     - name: Read browsers JSON file
       id: set-matrix
       run: |
-        content=`cat ./browsers.json | jq -r 'to_entries | .[] | .value'`
+        content=`cat ./browsers.json | jq -c .`
         echo "content: $content"
-        echo "matrix=[${content}]" | tee $GITHUB_ENV
+        echo "matrix=$content" | tee $GITHUB_ENV
+        echo "::set-output name=matrix::$content"
 
   run-tests:
     needs: prepare-matrix
