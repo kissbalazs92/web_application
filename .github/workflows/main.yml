@@ -43,7 +43,7 @@ jobs:
       run: |
         sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
         docker-compose up -d web db
-        docker-compose run robot
+        docker run -e BROWSER=Chrome -v $(pwd)/robot_framework:/app -v $(pwd)/results:/results your_robot_image_name python3 -m robot -d /results -v BROWSER:$BROWSER -V /app/resources/common_variables.py /app/tests
         exit_code=$?
         echo "exit_code=$exit_code" >> $GITHUB_ENV
         if [ $exit_code -ne 0 ]; then
