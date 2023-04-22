@@ -20,16 +20,17 @@ jobs:
       run: |
         content=`cat ./browsers.json | jq -c .`
         echo "content: $content"
-        echo "matrix=$content" | tee $GITHUB_ENV
-        echo "matrix::$content" >> $GITHUB_OUTPUT
+        echo "matrix=$content" >> $GITHUB_ENV
+        echo "SET_MATRIX_OUTPUT=$content" >> $GITHUB_ENV
 
   run-tests:
     needs: prepare-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: 
-        browsers: [Chrome, Firefox]
+      matrix:
+        include:
+          - browsers: ${{ env.SET_MATRIX_OUTPUT }}
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
