@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - master
-      
+
 jobs:
   prepare-matrix:
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
         content=`cat ./browsers.json | jq -c .`
         echo "content: $content"
         echo "matrix=$content" | tee $GITHUB_ENV
-        echo "::set-output name=matrix::$content"
+        echo "matrix::$content" >> $GITHUB_OUTPUT
 
   run-tests:
     needs: prepare-matrix
