@@ -46,7 +46,7 @@ services:
       - WEB_APP_URL=http://web:80
     volumes:
       - ./robot_framework:/app
-      - ./results:/results
+      - ./robot_framework/results:/results
 
 networks:
   network_to_connect:
