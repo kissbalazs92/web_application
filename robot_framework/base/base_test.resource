@@ -33,7 +33,7 @@ ${BROWSERS}    ${EMPTY}
 Common Test Setup
     ${BROWSERS}=    Read Browsers From JSON
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
-    ${is_browser_valid}=    Evaluate    ${BROWSER} in ${BROWSERS}
+    ${is_browser_valid}=    Evaluate    '${BROWSER}' in ${BROWSERS}
     Log    ${is_browser_valid}    console=${True}
     IF    ${is_browser_valid} == $True
         Setup Browser    ${BROWSER}
