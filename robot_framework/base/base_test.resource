@@ -32,6 +32,9 @@ ${BROWSERS}    ${EMPTY}
 Common Test Setup
     ${BROWSERS}=    Read Browsers From JSON
     Log    ${BROWSERS}    console=${True}
+    ${asd}=    Evaluate    type(${BROWSERS})
+    Log    típus:${asd}    console=${True}
+    Log    0dik elem:${BROWSERS}[0]    console=${True}
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
     IF    $BROWSER == $BROWSERS[0]
         Setup Chrome
