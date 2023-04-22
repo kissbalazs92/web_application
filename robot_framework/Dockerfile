@@ -4,14 +4,14 @@ WORKDIR /app
 
 COPY requirements.txt .
 
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
 RUN apt-get update && \
     apt-get install -y apt-utils wget gnupg curl unzip
-
-RUN python3 -m venv /venv
-ENV PATH="/venv/bin:$PATH"
 
 ARG BROWSER
 
