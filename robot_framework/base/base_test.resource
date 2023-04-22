@@ -72,7 +72,9 @@ Setup Firefox
 Setup Edge
     ${edge_options} =    Evaluate    selenium.webdriver.EdgeOptions()
     Call Method    ${edge_options}    add_argument    --headless
+    Call Method    ${edge_options}    add_argument    --window-size\=1920,1080
     Call Method    ${edge_options}    add_argument    --start-maximized
+    Call Method    ${edge_options}    add_argument    --disable-gpu
     ${edge_driver_path}=    Get Edge Driver Path
     Create WebDriver    ${BROWSER}    executable_path=${edge_driver_path}    options=${edge_options}
 
