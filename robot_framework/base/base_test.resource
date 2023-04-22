@@ -3,6 +3,8 @@ Library    SeleniumLibrary
 Library    DatabaseLibrary
 Library    Collections
 Library    String
+Library    json
+Library    OperatingSystem
 Library    ../resources/webdriver-helper.py
 Library    ../resources/random_data_generator.py
 Library    ../resources/url_helper.py
@@ -28,7 +30,8 @@ ${BROWSERS}    ${EMPTY}
 
 *** Keywords ***
 Common Test Setup
-    ${BROWSERS}=    Create List    chrome    firefox    edge
+    ${BROWSERS}=    Read Browsers From JSON
+    Log    ${BROWSERS}    console=${True}
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
     IF    $BROWSER == $BROWSERS[0]
         Setup Chrome

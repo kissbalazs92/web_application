@@ -50,4 +50,7 @@ Connect To MySQL Database
     ${DB_PORT}    Set Variable    3308
     Connect To Database    pymysql    ${DB_NAME}    ${DB_USER}    ${DB_PASSWORD}    ${DB_HOST}    ${DB_PORT}
 
-
+Read Browsers From JSON
+    ${file_content}=    Get File   browsers.json
+    ${browsers_list}=    Evaluate    json.loads($file_content)    json
+    [Return]    ${browsers_list}
