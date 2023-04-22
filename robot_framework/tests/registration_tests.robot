@@ -12,4 +12,3 @@ Register new user
     Fill Registration Form With Random Test Data
     Click Button    ${SUBMIT_BUTTON}
     Verify Successful Registration
-    Fail
