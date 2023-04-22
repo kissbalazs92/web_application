@@ -32,8 +32,8 @@ ${BROWSERS}    ${EMPTY}
 *** Keywords ***
 Common Test Setup
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
-    Setup Browser    ${BROWSER}
     Log    ${BROWSER}    console=${True}
+    Setup Browser    ${BROWSER}
     Go To    ${BASE_URL}
     FOR    ${i}    IN RANGE    60
         Reload Page
@@ -44,13 +44,13 @@ Common Test Setup
 
 Setup Browser
     [Arguments]    ${BROWSER}
-    IF    $BROWSER == "chrome"
+    IF    '${BROWSER}'' == "chrome"
         Setup Chrome
     END
-    IF    $BROWSER == "firefox"
+    IF    '${BROWSER}'' == "firefox"
         Setup Firefox
     END
-    IF    $BROWSER == "edge"
+    IF    '${BROWSER}'' == "edge"
         Setup Edge
     END
 
