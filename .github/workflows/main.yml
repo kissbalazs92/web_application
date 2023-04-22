@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - browsers: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
+        browsers: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
