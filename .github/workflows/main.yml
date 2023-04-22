@@ -55,7 +55,8 @@ jobs:
     - name: Copy results
       if: always()
       run: |
-        docker cp robot_framework_container:/results ./results
+        container_name=$(docker-compose ps -q robot)
+        docker cp $container_name:/results ./results
 
     - name: Remove container
       if: always()
