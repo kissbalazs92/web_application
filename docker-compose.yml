@@ -45,7 +45,7 @@ services:
     networks:
       - network_to_connect
     environment:
-      - BROWSER=Chrome
+      - BROWSER=${BROWSER}
       - WEB_APP_URL=http://web:80
     volumes:
       - ./robot_framework:/app

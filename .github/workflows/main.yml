@@ -61,7 +61,7 @@ jobs:
 
     - name: Run Docker Compose and run tests
       run: |
-        sed -i "s/- BROWSER=Chrome/- BROWSER=${{ env.BROWSER_ENV }}/g" docker-compose.yml
+        export BROWSER=${{ env.BROWSER_ENV }}
         docker-compose up -d web db
         docker-compose up robot || true
         exit_code=$(docker inspect robot_framework_container --format='{{.State.ExitCode}}')
