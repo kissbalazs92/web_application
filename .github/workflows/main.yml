@@ -50,6 +50,15 @@ jobs:
           echo "::error::Test(s) failed with exit code $exit_code"
           exit $exit_code
         fi
+    - name: Debug - List running containers
+      run: docker ps
+
+    - name: Debug - List content of /app/results in the robot container
+      run: docker exec robot_framework_container ls -la /app/results
+
+    - name: Debug - List content of the local results folder
+      run: ls -la ./results
+
     - name: Copy results
       if: always()
       run: |
