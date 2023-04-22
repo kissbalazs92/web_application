@@ -36,7 +36,10 @@ services:
 
   robot:
     container_name: robot_framework_container
-    build: ./robot_framework
+    build:
+      context: ./robot_framework
+      args:
+        BROWSER: ${BROWSER}
     depends_on:
       - web
     networks:
