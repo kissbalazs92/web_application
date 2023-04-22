@@ -13,7 +13,7 @@ RUN pip3 install --trusted-host pypi.python.org -r requirements.txt
 RUN apt-get update && \
     apt-get install -y wget gnupg curl unzip
 
-RUN echo $BROWSER
+RUN echo "Browser:$BROWSER ${BROWSER}"
 
 RUN if [ "$BROWSER" = "Chrome" ]; then \
       wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
