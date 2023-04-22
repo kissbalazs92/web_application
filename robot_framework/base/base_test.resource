@@ -65,12 +65,12 @@ Setup Firefox
     Call Method    ${firefox_options}    add_argument    --headless
     Call Method    ${firefox_options}    add_argument    --window-size\=1920,1080
     Call Method    ${firefox_options}    add_argument    --start-maximized
-    ${LOG_PATH} =    Set Variable    ../results/geckodriver.log
     ${firefox_driver_path}=    Get Firefox Driver Path
-    Create WebDriver    ${BROWSER}    executable_path=${firefox_driver_path}    options=${firefox_options}    log_path=${LOG_PATH}
+    Create WebDriver    ${BROWSER}    executable_path=${firefox_driver_path}    options=${firefox_options}
 
 Setup Edge
     ${edge_options} =    Evaluate    selenium.webdriver.EdgeOptions()
+    Call Method    ${edge_options}    add_argument    --no-sandbox
     Call Method    ${edge_options}    add_argument    --headless
     Call Method    ${edge_options}    add_argument    --window-size\=1920,1080
     Call Method    ${edge_options}    add_argument    --start-maximized
