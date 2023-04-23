@@ -3,7 +3,6 @@ Library    SeleniumLibrary
 Library    DatabaseLibrary
 Library    Collections
 Library    String
-Library    selenium.webdriver
 Library    ../resources/webdriver-helper.py
 Library    ../resources/random_data_generator.py
 Library    ../resources/url_helper.py
@@ -31,6 +30,7 @@ ${BROWSERS}    ${EMPTY}
 Common Test Setup
     ${BROWSERS}=    Create List    chrome    firefox    edge
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
+    Log    ${BROWSER}    console=${True}
     IF    $BROWSER == $BROWSERS[0]
         Setup Chrome
     END
