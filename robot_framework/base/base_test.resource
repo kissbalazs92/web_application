@@ -3,9 +3,6 @@ Library    SeleniumLibrary
 Library    DatabaseLibrary
 Library    Collections
 Library    String
-Library    json
-Library    OperatingSystem
-
 Library    ../resources/webdriver-helper.py
 Library    ../resources/random_data_generator.py
 Library    ../resources/url_helper.py
@@ -31,27 +28,24 @@ ${BROWSERS}    ${EMPTY}
 
 *** Keywords ***
 Common Test Setup
+    ${BROWSERS}=    Create List    chrome    firefox    edge
     ${BROWSER}=    Convert To Lower Case    ${BROWSER}
+    IF    $BROWSER == $BROWSERS[0]
+        Setup Chrome
+    END
+    IF    $BROWSER == $BROWSERS[1]
+        Setup Firefox
+    END
+    IF    $BROWSER == $BROWSERS[2]
+        Setup Edge
+    END
     Log    ${BROWSER}    console=${True}
-    Setup Browser    ${BROWSER}
     Go To    ${BASE_URL}
     FOR    ${i}    IN RANGE    60
         Reload Page
         ${contains_element}=    Run Keyword And Return Status    Element Should Be Visible    ${HOME_PAGE_TEXT}
         Exit For Loop If    '${contains_element}' == 'True'
         Sleep    1s
-    END
-
-Setup Browser
-    [Arguments]    ${BROWSER}
-    IF    '${BROWSER}' == "chrome"
-        Setup Chrome
-    END
-    IF    '${BROWSER}' == "firefox"
-        Setup Firefox
-    END
-    IF    '${BROWSER}' == "edge"
-        Setup Edge
     END
 
 Setup Chrome
