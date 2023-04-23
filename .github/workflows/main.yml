@@ -36,12 +36,12 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-      - name: Check cache directories
-        run: |
-          echo "Checking /tmp/.buildx-cache directory:"
-          ls -la /tmp/.buildx-cache || echo "/tmp/.buildx-cache does not exist"
-          echo "Checking ~/.cache/pip directory:"
-          ls -la ~/.cache/pip || echo "~/.cache/pip does not exist"
+    - name: Check cache directories
+      run: |
+        echo "Checking /tmp/.buildx-cache directory:"
+        ls -la /tmp/.buildx-cache || echo "/tmp/.buildx-cache does not exist"
+        echo "Checking ~/.cache/pip directory:"
+        ls -la ~/.cache/pip || echo "~/.cache/pip does not exist"
 
     - name: Cache Docker layers
       uses: actions/cache@v3
