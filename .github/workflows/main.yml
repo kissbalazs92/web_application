@@ -60,9 +60,6 @@ jobs:
     - name: Set BROWSER_ENV variable
       run: echo "BROWSER_ENV=${{ matrix.browsers }}" >> $GITHUB_ENV
 
-    - name: Print BROWSER_ENV variable
-      run: echo "BROWSER_ENV=${{ env.BROWSER_ENV }}"
-
     - name: Run Docker Compose and run tests
       run: |
         export BROWSER=${{ env.BROWSER_ENV }}
