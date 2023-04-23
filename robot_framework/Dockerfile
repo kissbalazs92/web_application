@@ -11,35 +11,39 @@ RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils wget gnupg curl unzip
+    apt-get install -y apt-utils
+
+RUN apt-get install -y wget gnupg curl unzip
 
 ARG BROWSER
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN if [ "$BROWSER" = "Chrome" ]; then \
       echo "Installing Chrome..." && \
-      wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-      echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+      curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-archive-keyring.gpg && \
+      echo "deb [signed-by=/usr/share/keyrings/google-archive-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
       apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get install -y google-chrome-stable; \
+      apt-get install -y google-chrome-stable; \
     elif [ "$BROWSER" = "Firefox" ]; then \
       echo "Installing Firefox..." && \
       echo "deb http://deb.debian.org/debian/ stable main" >> /etc/apt/sources.list.d/debian.list && \
       apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get install -y firefox-esr; \
+      apt-get install -y firefox-esr; \
     elif [ "$BROWSER" = "Edge" ]; then \
       echo "Installing Microsoft Edge..." && \
       curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
       install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/ && \
       echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge/ stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list && \
       apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get install -y microsoft-edge-dev; \
+      apt-get install -y microsoft-edge-dev; \
     elif [ "$BROWSER" = "Opera" ]; then \
       echo "Installing Opera..." && \
       wget -qO- https://deb.opera.com/archive.key | gpg --dearmor > opera.gpg && \
       install -o root -g root -m 644 opera.gpg /etc/apt/trusted.gpg.d/ && \
       echo "deb [arch=amd64] https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list && \
       apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get install -y opera-stable; \
+      apt-get install -y opera-stable; \
     fi
 
 COPY . .
