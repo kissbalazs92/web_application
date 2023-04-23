@@ -44,13 +44,13 @@ Common Test Setup
 
 Setup Browser
     [Arguments]    ${BROWSER}
-    IF    '${BROWSER}'' == "chrome"
+    IF    '${BROWSER}' == "chrome"
         Setup Chrome
     END
-    IF    '${BROWSER}'' == "firefox"
+    IF    '${BROWSER}' == "firefox"
         Setup Firefox
     END
-    IF    '${BROWSER}'' == "edge"
+    IF    '${BROWSER}' == "edge"
         Setup Edge
     END
 
