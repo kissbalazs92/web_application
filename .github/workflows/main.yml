@@ -41,13 +41,6 @@ jobs:
         mkdir -p /tmp/.buildx-cache
         mkdir -p ~/.cache/pip
 
-    - name: Check cache directories
-      run: |
-        echo "Checking /tmp/.buildx-cache directory:"
-        ls -la /tmp/.buildx-cache || echo "/tmp/.buildx-cache does not exist"
-        echo "Checking ~/.cache/pip directory:"
-        ls -la ~/.cache/pip || echo "~/.cache/pip does not exist"
-
     - name: Cache Docker layers
       uses: actions/cache@v3
       with:
@@ -63,13 +56,6 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
-    - name: Check cache directories2
-      run: |
-        echo "Checking /tmp/.buildx-cache directory:"
-        ls -la /tmp/.buildx-cache || echo "/tmp/.buildx-cache does not exist"
-        echo "Checking ~/.cache/pip directory:"
-        ls -la ~/.cache/pip || echo "~/.cache/pip does not exist"
 
     - name: Set BROWSER_ENV variable
       run: echo "BROWSER_ENV=${{ matrix.browsers }}" >> $GITHUB_ENV
