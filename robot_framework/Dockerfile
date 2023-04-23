@@ -11,18 +11,14 @@ RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
 RUN apt-get update && \
-    apt-get install -y apt-utils
-
-RUN apt-get install -y wget gnupg curl unzip
+    DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils wget gnupg curl unzip
 
 ARG BROWSER
 
-ENV DEBIAN_FRONTEND=noninteractive
-
 RUN if [ "$BROWSER" = "Chrome" ]; then \
       echo "Installing Chrome..." && \
-      curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-archive-keyring.gpg && \
-      echo "deb [signed-by=/usr/share/keyrings/google-archive-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+      wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+      echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
       apt-get update && \
       apt-get install -y google-chrome-stable; \
     elif [ "$BROWSER" = "Firefox" ]; then \
