@@ -3,6 +3,7 @@ Library    SeleniumLibrary
 Library    DatabaseLibrary
 Library    Collections
 Library    String
+Library    selenium.webdriver
 Library    ../resources/webdriver-helper.py
 Library    ../resources/random_data_generator.py
 Library    ../resources/url_helper.py
